@@ -1,0 +1,230 @@
+--
+-- PostgreSQL database dump
+--
+
+-- Dumped from database version 14.5
+-- Dumped by pg_dump version 14.5
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
+SET check_function_bodies = false;
+SET xmloption = content;
+SET client_min_messages = warning;
+SET row_security = off;
+
+SET default_tablespace = '';
+
+SET default_table_access_method = heap;
+
+--
+-- Name: container; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.container (
+    "Container Code" text NOT NULL,
+    "Container Type" text
+);
+
+
+ALTER TABLE public.container OWNER TO postgres;
+
+--
+-- Name: data; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.data (
+    "Item Name" text NOT NULL,
+    "Item Type" text,
+    "Item Price" integer,
+    "Retrieval City" text,
+    "Retrieval Start Time" text,
+    "Retrieval Courier" text,
+    "Retrieval Courier Gender" text,
+    "Retrieval Courier Phone Number" text,
+    "Retrieval Courier Age" integer,
+    "Delivery Finished Time" text,
+    "Delivery City" text,
+    "Delivery Courier" text,
+    "Delivery Courier Gender" text,
+    "Delivery Courier Phone Number" text,
+    "Delivery Courier Age" numeric,
+    "Item Export City" text,
+    "Item Export Tax" numeric,
+    "Item Export Time" text,
+    "Item Import City" text,
+    "Item Import Tax" numeric,
+    "Item Import Time" text,
+    "Container Code" text,
+    "Container Type" text,
+    "Ship Name" text,
+    "Company Name" text,
+    "Log Time" text,
+    orderid bigint NOT NULL
+);
+
+
+ALTER TABLE public.data OWNER TO postgres;
+
+--
+-- Name: data_orderid_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.data_orderid_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.data_orderid_seq OWNER TO postgres;
+
+--
+-- Name: data_orderid_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.data_orderid_seq OWNED BY public.data.orderid;
+
+
+--
+-- Name: deliverycourier; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.deliverycourier (
+    orderid bigint NOT NULL,
+    "Delivery Courier" text,
+    "Delivery Courier Gender" text,
+    "Delivery Courier Phone Number" text,
+    "Delivery Courier Age" numeric
+);
+
+
+ALTER TABLE public.deliverycourier OWNER TO postgres;
+
+--
+-- Name: export; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.export (
+    orderid bigint NOT NULL,
+    "Item Export City" text,
+    "Item Export Tax" numeric,
+    "Item Export Time" text
+);
+
+
+ALTER TABLE public.export OWNER TO postgres;
+
+--
+-- Name: item; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.item (
+    orderid bigint NOT NULL,
+    "Item Name" text,
+    "Item Type" text,
+    "Item Price" integer
+);
+
+
+ALTER TABLE public.item OWNER TO postgres;
+
+--
+-- Name: packingandshipping; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.packingandshipping (
+    orderid bigint NOT NULL,
+    "Ship Name" text,
+    "Container Code" text
+);
+
+
+ALTER TABLE public.packingandshipping OWNER TO postgres;
+
+--
+-- Name: retrievalcourier; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.retrievalcourier (
+    orderid bigint NOT NULL,
+    "Retrieval Courier" text,
+    "Retrieval Courier Gender" text,
+    "Retrieval Courier Phone Number" text,
+    "Retrieval Courier Age" integer
+);
+
+
+ALTER TABLE public.retrievalcourier OWNER TO postgres;
+
+--
+-- Name: data orderid; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.data ALTER COLUMN orderid SET DEFAULT nextval('public.data_orderid_seq'::regclass);
+
+
+--
+-- Name: container cp; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.container
+    ADD CONSTRAINT cp PRIMARY KEY ("Container Code");
+
+
+--
+-- Name: data data_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.data
+    ADD CONSTRAINT data_pkey PRIMARY KEY (orderid);
+
+
+--
+-- Name: deliverycourier pdeliverycourier; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.deliverycourier
+    ADD CONSTRAINT pdeliverycourier PRIMARY KEY (orderid);
+
+
+--
+-- Name: export pexport; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.export
+    ADD CONSTRAINT pexport PRIMARY KEY (orderid);
+
+
+--
+-- Name: item pitem; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.item
+    ADD CONSTRAINT pitem PRIMARY KEY (orderid);
+
+
+--
+-- Name: packingandshipping ppackingandshipping; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.packingandshipping
+    ADD CONSTRAINT ppackingandshipping PRIMARY KEY (orderid);
+
+
+--
+-- Name: retrievalcourier pretrievalcourier; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.retrievalcourier
+    ADD CONSTRAINT pretrievalcourier PRIMARY KEY (orderid);
+
+
+--
+-- PostgreSQL database dump complete
+--
+
