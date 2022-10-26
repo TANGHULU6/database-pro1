@@ -52,25 +52,33 @@ Item Name,Item Type,Item Price,Retrieval City,Retrieval Start Time,Retrieval Cou
 
 \progress1
 
- 
+ <>id 流程号 自增主键
+
+<>retrieval id 检察流程号 外键 指向检察表
 
 \progress2
 
- 
+ <>id 流程号 自增主键
+
+<>export id 出口流程号 外键 指向出口表
 
 \progress3
 
- 
+ <>id 流程号 自增主键
+
+<>packing or shipping id 运输流程号 外键 指向运输过程中表
 
 \progress4
 
- 
+ <>id 流程号 自增主键
+
+<>import id 进口流程号 外键 指向进口表
 
 \progress5
 
- 
+ <>id 流程号 自增主键
 
- 
+ <>delivery id 抵达流程号 外键 指向抵达表
 
 ***\*\Item货物表\****
 
